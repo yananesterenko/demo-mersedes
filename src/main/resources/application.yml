@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: tripDemo
+
+server:
+  port: 8081
+
+login:
+  name: admin
+  pass: admin
+
