@@ -18,6 +18,7 @@ public class RequestService {
         Responce responce = new Responce();
         responce.setConsumption("Cons");
         responce.setVin("4234832486496");
+        responce.setAdditionalProperty("AddProperty", "Value property");
         if (!latitude.isEmpty() & !longitude.isEmpty()) {
             responce.setDeparture(neutrinoAPI.getRecodeReverceCityName(latitude, longitude));
         } else {

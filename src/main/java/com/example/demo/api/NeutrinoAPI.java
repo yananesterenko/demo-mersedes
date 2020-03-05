@@ -24,7 +24,6 @@ public class NeutrinoAPI {
         try {
 //        HttpPost httpPost = new HttpPost("https://neutrinoapi.net/ip-info");
             HttpPost httpPost = new HttpPost("https://neutrinoapi.net/geocode-reverse");
-
             List<NameValuePair> postData = new ArrayList<>();
             postData.add(new BasicNameValuePair("user-id", "nesterenko"));
             postData.add(new BasicNameValuePair("api-key", "Fs407cGmB0wBXgNiAVzLqHJEeuCdv6TMsbe18tFsQJgvaHza"));
@@ -42,6 +41,7 @@ public class NeutrinoAPI {
             cityName = json.getString("city");
             System.out.println("City: " + json.getString("city"));
             System.out.println("Country: " + json.getString("country"));
+
         } catch (IOException | JSONException ex) {
             ex.printStackTrace();
         }
