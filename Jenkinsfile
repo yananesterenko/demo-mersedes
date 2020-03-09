@@ -1,7 +1,6 @@
 pipeline{
    agent any
    stages {
-
        stage('Scm checkout') {
             steps {
                 git credentialsId: 'github-cred', url: 'https://github.com/yananesterenko/demo-mersedes'
@@ -9,21 +8,17 @@ pipeline{
        }
        stage('Mvn Compile'){
             steps {
-               def mvnHome = tool name: 'Maven', type: 'maven'
-               def mvnCMD = "${mvnHome}/bin/mvn"
-               sh "${mvnCMD} clean compile -DskipTests=true"
+                sh 'mvn clean compile -DskipTests=true'
            }
        }
         stage('Mvn Package'){
             steps {
-               def mvnHome = tool name: 'Maven', type: 'maven'
-               def mvnCMD = "${mvnHome}/bin/mvn"
-               sh "${mvnCMD} package -DskipTests=true"
+               sh 'mvn package -DskipTests=true#
             }
        }
        stage("Docker build Image") {
             steps {
-                sh "docker build -t  yana20200212/demomerc ."
+                sh 'docker build -t  yana20200212/demomerc .'
             }
        }
         stage("Docker push Image") {
