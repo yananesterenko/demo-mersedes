@@ -8,15 +8,14 @@ pipeline{
        }
        stage('Mvn Compile'){
             steps {
-             withMaven(maven: 'Maven')/´{
+             withMaven(maven: 'Maven'){
              sh 'mvn clean compile -DskipTests=true'
              }
-
            }
        }
         stage('Mvn Package'){
             steps {
-                withMaven(maven: 'Maven')/´{
+                withMaven(maven: 'Maven'){
                sh 'mvn package -DskipTests=true'
                }
             }
