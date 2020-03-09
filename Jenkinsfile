@@ -8,9 +8,9 @@ pipeline{
        }
        stage('Mvn Compile'){
             steps {
-                echo "PATH = ${PATH}"
-                echo "M2_HOME = ${M2_HOME}"
-                sh 'mvn clean compile -DskipTests=true'
+                  def mvnHome = tool name: 'Maven', type: 'maven'
+                   def mvnCMD = "${mvnHome}/bin/mvn"
+                   sh "${mvnCMD} clean compile -DskipTests=true"
            }
        }
         stage('Mvn Package'){
