@@ -1,5 +1,5 @@
 pipeline{
-   node {
+   stages {
        stage('Scm checkout') {
            git credentialsId: 'github-cred', url: 'https://github.com/yananesterenko/demo-mersedes'
        }
