@@ -8,14 +8,17 @@ pipeline{
        }
        stage('Mvn Compile'){
             steps {
-                  def mvnHome = tool name: 'Maven', type: 'maven'
-                   def mvnCMD = "${mvnHome}/bin/mvn"
-                   sh "${mvnCMD} clean compile -DskipTests=true"
+             withMaven(maven: 'Maven')/´{
+             sh 'mvn clean compile -DskipTests=true'
+             }
+
            }
        }
         stage('Mvn Package'){
             steps {
+                withMaven(maven: 'Maven')/´{
                sh 'mvn package -DskipTests=true'
+               }
             }
        }
        stage("Docker build Image") {
