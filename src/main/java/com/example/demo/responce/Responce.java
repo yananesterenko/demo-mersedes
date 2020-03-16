@@ -30,7 +30,7 @@ public class Responce {
     @JsonProperty("breaks")
     private List<Break> breaks = null;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     @JsonProperty("vin")
     public String getVin() {
@@ -101,5 +101,4 @@ public class Responce {
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
-
 }

@@ -4,28 +4,30 @@ import com.example.demo.api.NeutrinoAPI;
 import com.example.demo.responce.Responce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.client.RestTemplate;
 
 @Component
 public class RequestService {
 
     @Autowired
-    NeutrinoAPI neutrinoAPI;
+    private NeutrinoAPI neutrinoAPI;
 
-    public Responce getResponse(String latitude, String longitude){
+
+    RestTemplate restTemplate;
+
+    public Responce getResponse(String latitude, String longitude) {
         Responce responce = new Responce();
         responce.setConsumption("Cons");
         responce.setVin("4234832486496");
         responce.setAdditionalProperty("AddProperty", "Value property");
-        if (!latitude.isEmpty() & !longitude.isEmpty()) {
+        if (!latitude.isEmpty() && !longitude.isEmpty()) {
             responce.setDeparture(neutrinoAPI.getRecodeReverceCityName(latitude, longitude));
         } else {
             responce.setDeparture("No name");
         }
-            responce.setDestination("Muenchen");
-
+        responce.setDestination("Muenchen");
         return responce;
     }
+
+
 }

@@ -1,15 +1,19 @@
 package com.example.demo.request;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class Request {
+
+    public Request(String vin, String breakThreshold, String gasTankSize, List<DataRequest> data) {
+        this.vin = vin;
+        this.breakThreshold = breakThreshold;
+        this.gasTankSize = gasTankSize;
+        this.data = data;
+    }
+
     @JsonProperty("vin")
     private String vin;
     @JsonProperty("breakThreshold")
@@ -17,8 +21,7 @@ public class Request {
     @JsonProperty("gasTankSize")
     private String gasTankSize;
     @JsonProperty("data")
-    private List<DataRequest> data = null;
-
+    private List<DataRequest> data;
 
     @JsonProperty("vin")
     public String getVin() {

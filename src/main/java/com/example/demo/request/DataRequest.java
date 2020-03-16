@@ -1,14 +1,9 @@
 package com.example.demo.request;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DataRequest {
     @JsonProperty("timestamp")

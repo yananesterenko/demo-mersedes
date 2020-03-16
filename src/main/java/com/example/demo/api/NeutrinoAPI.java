@@ -1,28 +1,27 @@
 package com.example.demo.api;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class NeutrinoAPI {
+    private static Logger log = LoggerFactory.getLogger(NeutrinoAPI.class.getName());
 
     public String getRecodeReverceCityName(String latitude, String longitude) {
         String cityName = "No name";
         try {
-//        HttpPost httpPost = new HttpPost("https://neutrinoapi.net/ip-info");
             HttpPost httpPost = new HttpPost("https://neutrinoapi.net/geocode-reverse");
             List<NameValuePair> postData = new ArrayList<>();
             postData.add(new BasicNameValuePair("user-id", "nesterenko"));
@@ -31,21 +30,19 @@ public class NeutrinoAPI {
             postData.add(new BasicNameValuePair("longitude", longitude));
             postData.add(new BasicNameValuePair("language-code", "de"));
             httpPost.setEntity(new UrlEncodedFormEntity(postData, "UTF-8"));
-
-            HttpResponse response = HttpClients.createDefault().execute(httpPost);
-            String jsonStr = EntityUtils.toString(response.getEntity());
-
-            JSONObject json = null;
-            json = new JSONObject(jsonStr);
-            System.out.println(json.toString());
-            cityName = json.getString("city");
-            System.out.println("City: " + json.getString("city"));
-            System.out.println("Country: " + json.getString("country"));
-
-        } catch (IOException | JSONException ex) {
-            ex.printStackTrace();
+            try (CloseableHttpResponse response = HttpClients.createDefault().execute(httpPost)) {
+                String jsonStr = EntityUtils.toString(response.getEntity());
+                JSONObject json;
+                json = new JSONObject(jsonStr);
+                String message = json.toString();
+                log.info(message);
+                cityName = json.getString("city");
+                String infoMessage = "City: " + json.getString("city");
+                log.info(infoMessage);
+            }
+        } catch (Exception e) {
+            log.error("Unexpected error", e);
         }
-
         return cityName;
     }
 
